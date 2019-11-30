@@ -1,0 +1,2 @@
+class SensorEvent < ApplicationRecord
+end

@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :etl, only: [] do
+    collection do
+      post :load
+    end
+  end
+
+  resources :sensor_event, only: [] do
+    collection do
+      get :altitude_from_range
+    end
+  end
 end

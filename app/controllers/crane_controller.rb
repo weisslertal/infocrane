@@ -1,0 +1,4 @@
+class CraneController < ApplicationController
+
+
+end
