@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   resources :etl, only: [] do
     collection do
       post :load
@@ -7,7 +10,13 @@ Rails.application.routes.draw do
 
   resources :sensor_event, only: [] do
     collection do
-      get :altitude_from_range
+      get :altitude_at_range
+    end
+  end
+
+  resources :crane, only: [] do
+    collection do
+      get :data_at_time
     end
   end
 end
