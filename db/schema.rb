@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191130113018) do
+ActiveRecord::Schema.define(version: 20191201172147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "crane_operations", force: :cascade do |t|
+    t.integer "number"
+    t.string "name"
+    t.string "operation_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "cranes", force: :cascade do |t|
     t.integer "identifier", null: false
@@ -23,14 +31,21 @@ ActiveRecord::Schema.define(version: 20191130113018) do
   end
 
   create_table "cycles", force: :cascade do |t|
-    t.string "load_type_name"
-    t.string "load_type_category_name"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "crane_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "load_type_id"
     t.index ["crane_id"], name: "index_cycles_on_crane_id"
+    t.index ["load_type_id"], name: "index_cycles_on_load_type_id"
+  end
+
+  create_table "load_types", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sensor_events", force: :cascade do |t|
@@ -47,13 +62,14 @@ ActiveRecord::Schema.define(version: 20191130113018) do
   end
 
   create_table "steps", force: :cascade do |t|
-    t.integer "step_number"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "cycle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "identifier"
+    t.bigint "crane_operation_id"
+    t.index ["crane_operation_id"], name: "index_steps_on_crane_operation_id"
     t.index ["cycle_id"], name: "index_steps_on_cycle_id"
   end
 

@@ -1,5 +1,5 @@
 class Crane < ApplicationRecord
-  def self.get_or_create(crane_id)
-    self.find_or_create_by!(identifier: crane_id.to_i)
-  end
+  has_many :sensor_events
+  has_many :cycles
+  validates_uniqueness_of :identifier
 end
