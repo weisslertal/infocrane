@@ -64,7 +64,7 @@ module EtlHelper
 
       Step.create!({ start_time: DateTime.parse(row['step_start_time']),
                      end_time: DateTime.parse(row['step_end_time']),
-                     crane_operation: CraneOperation.find_by(number: row['step_num'].to_i),
+                     crane_operation: CraneOperation.find_or_create_by(number: row['step_num'].to_i),
                      identifier: row['id'].to_i,
                      cycle: cycle
                    })

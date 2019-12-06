@@ -8,7 +8,7 @@ class Cycle < ApplicationRecord
     self.where(start_time: cycle_params[:start_time],
                 end_time: cycle_params[:end_time],
                 crane_id: cycle_params[:crane_id]).first_or_create! do |cycle|
-      cycle.load_type = LoadType.find_or_create_by_name_and_category(cycle_params[:load_type_name], cycle_params[:load_type_category_name])
+      cycle.load_type = cycle_params[:load_type]
     end
   end
 end

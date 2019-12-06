@@ -1,7 +1,7 @@
 class SensorEventController < ApplicationController
   require 'date'
 
-  def altitude_at_range
+  def altitude_at_time
     time_from = DateTime.strptime(params[:time_from],'%s')
     time_to = DateTime.strptime(params[:time_to],'%s')
 
