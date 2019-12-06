@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20191201172147) do
   create_table "cycles", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "crane_id"
+    t.bigint "crane_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "load_type_id"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20191201172147) do
     t.decimal "weight"
     t.decimal "altitude"
     t.datetime "occurrence_time"
-    t.integer "crane_id"
+    t.bigint "crane_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "identifier", null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20191201172147) do
   create_table "steps", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "cycle_id"
+    t.bigint "cycle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "identifier"

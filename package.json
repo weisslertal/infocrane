@@ -1,5 +1,7 @@
 {
   "name": "infocrane",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "redis": "^2.8.0"
+  }
 }

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :crane, only: [] do
+  resources :crane, only: [:index] do
     collection do
       get :data_at_time
     end

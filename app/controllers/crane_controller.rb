@@ -1,4 +1,8 @@
 class CraneController < ApplicationController
+  def index
+    render status: :ok, json: Crane.all.pluck(:identifier)
+  end
+
   def data_at_time
     timestamp = DateTime.strptime(params['timestamp'],'%s')
 

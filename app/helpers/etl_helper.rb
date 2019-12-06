@@ -29,11 +29,13 @@ module EtlHelper
   end
 
   def load_file_to_csv(url)
+    puts "load_file_to_csv: #{url}"
     sensor_data = Net::HTTP.get(URI.parse(url))
     CSV.parse(sensor_data, headers: true)
   end
 
   def persist_sensor_data(sensor_csv)
+    puts 'persist_sensor_data'
     validate_headers(sensor_csv.headers, VALID_SENSOR_HEADERS)
 
     sensor_csv.each do |row|
@@ -43,19 +45,20 @@ module EtlHelper
                               weight: row['weight'].to_d,
                               altitude: row['altitude'].to_d,
                               occurrence_time: DateTime.parse(row['event_timestamp']),
-                              crane_id: Crane.find_or_create_by!(row['crane_id']).id
+                              crane_id: Crane.find_or_create_by!(identifier: row['crane_id']).id
                           })
     end
   end
 
   def persist_cycle_data(cycle_csv)
+    puts 'persist_cycle_data'
     validate_headers(cycle_csv.headers, VALID_CYCLE_HEADERS)
 
     cycle_csv.each do |row|
       cycle = Cycle.find_or_create!({
                                         start_time: DateTime.parse(row['start_time']),
                                         end_time: DateTime.parse(row['end_time']),
-                                        crane: Crane.find_or_create_by!(row['crane_id']),
+                                        crane: Crane.find_or_create_by!(identifier: row['crane_id']),
                                         load_type: LoadType.find_or_create_by_name_and_category(row['load_type_name'], row['load_type_category_name'])
                                     })
 
