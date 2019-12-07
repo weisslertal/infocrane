@@ -8,7 +8,7 @@ class EtlController < ApplicationController
       sensor_url = URI.parse(params['sensor_data_url'])
       cycle_url = URI.parse(params['cycles_data_url'])
     rescue URI::InvalidURIError => e 
-      render(status: :bad_request, json: { message: 'Invalid URL', status: 400 }) && return 
+      render(status: 400, json: { message: 'Invalid URL' }) && return 
     end
 
     Rails.logger.debug('Calling ETL worker...')

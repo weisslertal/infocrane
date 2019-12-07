@@ -21,11 +21,11 @@ module EtlHelper
   ).freeze
 
   def execute_etl(sensor_url, cycles_url)
-    sensor_csv = load_file_to_csv(sensor_url)
     cycles_csv = load_file_to_csv(cycles_url)
+    sensor_csv = load_file_to_csv(sensor_url)
 
-    persist_sensor_data(sensor_csv)
     persist_cycle_data(cycles_csv)
+    persist_sensor_data(sensor_csv)
   end
 
   def load_file_to_csv(url)
