@@ -2,6 +2,10 @@ class SensorEventController < ApplicationController
   require 'date'
 
   def altitude_at_time_range
+    if params['time_from'].blank? ||  params['time_to'].blank? || params['crane_id'].blank?
+      render(status: 400, json: { message: 'Missing parameters' }) && return
+    end
+
     time_from = DateTime.strptime(params[:time_from],'%s')
     time_to = DateTime.strptime(params[:time_to],'%s')
 

@@ -4,6 +4,10 @@ class CraneController < ApplicationController
   end
 
   def data_at_time
+    if params['timestamp'].blank? || params['crane_id'].blank?
+      render(status: 400, json: { message: 'Missing parameters' }) && return
+    end
+
     timestamp = DateTime.strptime(params['timestamp'],'%s')
     crane = Crane.find_by(identifier: params['crane_id'])
     
@@ -25,10 +29,10 @@ class CraneController < ApplicationController
         image_url: sensor_event[:image_url],
         weight: sensor_event[:weight],
         altitude: sensor_event[:altitude],
-        load_type: cycle[:load_type]&.[](:name),
-        load_type_category: cycle[:load_type]&.[](:category),
-        step_number: step[:crane_operation]&.[](:number),
-        step_name: step[:crane_operation]&.[](:name),
+        load_type: cycle.load_type[:name],
+        load_type_category: cycle.load_type[:category],
+        step_number: step.crane_operation[:number],
+        step_name: step.crane_operation[:name],
         time: timestamp,
         crane_number: crane[:identifier]
     }
