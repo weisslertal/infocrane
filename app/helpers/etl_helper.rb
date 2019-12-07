@@ -30,7 +30,7 @@ module EtlHelper
 
   def load_file_to_csv(url)
     puts "load_file_to_csv: #{url}"
-    sensor_data = Net::HTTP.get(URI.parse(url)
+    sensor_data = Net::HTTP.get(URI.parse(url))
     CSV.parse(sensor_data, headers: true)
   end
 
