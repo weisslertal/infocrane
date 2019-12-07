@@ -29,13 +29,11 @@ module EtlHelper
   end
 
   def load_file_to_csv(url)
-    puts "load_file_to_csv: #{url}"
     sensor_data = Net::HTTP.get(URI.parse(url))
     CSV.parse(sensor_data, headers: true)
   end
 
   def persist_sensor_data(sensor_csv)
-    puts 'persist_sensor_data'
     validate_headers(sensor_csv.headers, VALID_SENSOR_HEADERS)
 
     sensor_csv.each do |row|
@@ -51,7 +49,6 @@ module EtlHelper
   end
 
   def persist_cycle_data(cycle_csv)
-    puts 'persist_cycle_data'
     validate_headers(cycle_csv.headers, VALID_CYCLE_HEADERS)
 
     cycle_csv.each do |row|
