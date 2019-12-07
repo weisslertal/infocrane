@@ -5,8 +5,8 @@ class CraneController < ApplicationController
 
   def data_at_time
     timestamp = DateTime.strptime(params['timestamp'],'%s')
-
     crane = Crane.find_by(identifier: params['crane_id'])
+    
     sensor_event = SensorEvent.find_by(occurrence_time: timestamp, crane_id: crane.id)
     cycle = crane&.cycles&.where("start_time < ?", timestamp)&.where("end_time > ?", timestamp)&.first
     step = cycle&.steps&.where("start_time < ?", timestamp)&.where("end_time > ?", timestamp)&.first
@@ -28,6 +28,7 @@ class CraneController < ApplicationController
         load_type: cycle[:load_type]&.[](:name),
         load_type_category: cycle[:load_type]&.[](:category),
         step_number: step[:crane_operation]&.[](:number),
+        step_name: step[:crane_operation]&.[](:name),
         time: timestamp,
         crane_number: crane[:identifier]
     }

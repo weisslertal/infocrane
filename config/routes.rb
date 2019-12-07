@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :sensor_event, only: [] do
     collection do
-      get :altitude_at_time
+      get :altitude_at_time_range
     end
   end
 
