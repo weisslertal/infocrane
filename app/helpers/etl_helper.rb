@@ -58,7 +58,7 @@ module EtlHelper
       cycle = Cycle.find_or_create!({
                                         start_time: DateTime.parse(row['start_time']),
                                         end_time: DateTime.parse(row['end_time']),
-                                        crane: Crane.find_or_create_by!(identifier: row['crane_id']),
+                                        crane_id: Crane.find_or_create_by!(identifier: row['crane_id']).id,
                                         load_type: LoadType.find_or_create_by_name_and_category(row['load_type_name'], row['load_type_category_name'])
                                     })
 
