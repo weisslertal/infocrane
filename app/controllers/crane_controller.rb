@@ -19,9 +19,7 @@ class CraneController < ApplicationController
       render(status: 404, json: { message: 'Data not found for this timestamp' }) && return
     end
 
-    response = extract_data_from_objects(sensor_event, cycle, step, crane, timestamp)
-
-    render status: :ok, json: response
+    render status: :ok, json: extract_data_from_objects(sensor_event, cycle, step, crane, timestamp)
   end
 
   def extract_data_from_objects(sensor_event, cycle, step, crane, timestamp)

@@ -11,7 +11,6 @@ class SensorEventController < ApplicationController
 
     crane = Crane.find_by(identifier: params[:crane_id])
     render(status: 404, json: { message: 'Crane not found' }) && return if crane.blank?
-
     events = SensorEvent.where(occurrence_time: time_from..time_to, crane_id: crane.id)
 
     response = {
